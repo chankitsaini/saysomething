@@ -37,8 +37,8 @@
   "devDependencies": {
     "@kyh/tsconfig": "catalog:",
     "@types/react": "catalog:",
-    "drizzle-kit": "^0.31.9",
-    "supabase": "^2.78.1",
+    "drizzle-kit": "^0.31.10",
+    "supabase": "^2.84.4",
     "typescript": "catalog:"
   },
   "prettier": "@kyh/prettier-config"
