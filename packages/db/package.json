@@ -28,7 +28,7 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
-    "drizzle-orm": "^0.45.1",
+    "drizzle-orm": "^0.45.2",
     "next": "catalog:",
     "postgres": "^3.4.8",
     "react": "catalog:",
