@@ -40,6 +40,5 @@
     "drizzle-kit": "^0.31.10",
     "supabase": "^2.84.4",
     "typescript": "catalog:"
-  },
-  "prettier": "@kyh/prettier-config"
+  }
 }
