@@ -1,5 +1,9 @@
 {
   "extends": "@kyh/tsconfig/internal-package.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "types": ["node"]
+  },
   "include": ["src"],
   "exclude": ["node_modules"]
 }
