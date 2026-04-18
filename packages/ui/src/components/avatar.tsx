@@ -98,7 +98,7 @@ type ProfileAvatarProps = {
 };
 
 function ProfileAvatar({ className, displayName, src, alt = "" }: ProfileAvatarProps) {
-  const initials = displayName?.slice(0, 1);
+  const initials = displayName?.slice(0, 1) || "?";
 
   return (
     <Avatar className={cn("size-9", className)}>

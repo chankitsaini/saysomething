@@ -28,8 +28,10 @@ const Page = () => {
             className="self-start"
             variant="outline"
             nativeButton={false}
-            render={<Link href="/">Return Home</Link>}
-          />
+            render={<Link href="/" />}
+          >
+            Return Home
+          </Button>
         </PageContent>
         <AsideHeader />
       </section>

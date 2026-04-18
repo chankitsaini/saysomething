@@ -50,55 +50,49 @@ export const Sidebar = () => {
           variant="ghost"
           {...homeControlProps}
           nativeButton={false}
-          render={
-            <Link href="/">
-              <LottiePlayer
-                src="/icons/home-icon.json"
-                className={iconClassName}
-                aria-hidden="true"
-                lottieRef={homeSetDotLottie}
-              />
-              <span className="sr-only md:not-sr-only">Home</span>
-            </Link>
-          }
-        />
+          render={<Link href="/" />}
+        >
+          <LottiePlayer
+            src="/icons/home-icon.json"
+            className={iconClassName}
+            aria-hidden="true"
+            lottieRef={homeSetDotLottie}
+          />
+          <span className="sr-only md:not-sr-only">Home</span>
+        </Button>
         <Button
           variant="ghost"
           {...bellControlProps}
           nativeButton={false}
-          render={
-            <Link href="/notifications">
-              <span className="relative">
-                <LottiePlayer
-                  src="/icons/bell-icon.json"
-                  className={iconClassName}
-                  aria-hidden="true"
-                  lottieRef={bellSetDotLottie}
-                />
-                {metadata.unread_count > 0 && (
-                  <span className="bg-destructive animate-in fade-in zoom-in absolute -top-0.5 -right-0.5 size-1.5 rounded-full" />
-                )}
-              </span>
-              <span className="sr-only md:not-sr-only">Notifications</span>
-            </Link>
-          }
-        />
+          render={<Link href="/notifications" />}
+        >
+          <span className="relative">
+            <LottiePlayer
+              src="/icons/bell-icon.json"
+              className={iconClassName}
+              aria-hidden="true"
+              lottieRef={bellSetDotLottie}
+            />
+            {metadata.unread_count > 0 && (
+              <span className="bg-destructive animate-in fade-in zoom-in absolute -top-0.5 -right-0.5 size-1.5 rounded-full" />
+            )}
+          </span>
+          <span className="sr-only md:not-sr-only">Notifications</span>
+        </Button>
         <Button
           variant="ghost"
           {...userControlProps}
           nativeButton={false}
-          render={
-            <Link href={user ? `/profile/${user.id}` : `/auth/sign-up`}>
-              <LottiePlayer
-                src="/icons/user-icon.json"
-                className={iconClassName}
-                aria-hidden="true"
-                lottieRef={userSetDotLottie}
-              />
-              <span className="sr-only md:not-sr-only">Profile</span>
-            </Link>
-          }
-        />
+          render={<Link href={user ? `/profile/${user.id}` : `/auth/sign-up`} />}
+        >
+          <LottiePlayer
+            src="/icons/user-icon.json"
+            className={iconClassName}
+            aria-hidden="true"
+            lottieRef={userSetDotLottie}
+          />
+          <span className="sr-only md:not-sr-only">Profile</span>
+        </Button>
       </nav>
       <footer className="border-t-border mt-auto hidden flex-col gap-2 border-t py-4 text-xs md:flex">
         <div>

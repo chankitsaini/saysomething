@@ -100,12 +100,12 @@ export const MoreButton = ({ post }: Props) => {
       nativeButton={false}
       className={buttonClassName}
       render={
-        <a href={`mailto:kai@kyh.io?subject=Report YS Post: ${post.id}`} target="_blank">
-          <FlagIcon aria-hidden="true" className="size-4" />
-          Report Post
-        </a>
+        <a href={`mailto:kai@kyh.io?subject=Report YS Post: ${post.id}`} target="_blank" />
       }
-    />,
+    >
+      <FlagIcon aria-hidden="true" className="size-4" />
+      Report Post
+    </Button>,
     !!user && isPostOwner && (
       <Button
         type="button"

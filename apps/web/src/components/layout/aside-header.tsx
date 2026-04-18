@@ -104,6 +104,7 @@ export const AsideHeader = () => {
       id: "theme",
       condition: true,
       wrap: true,
+      nativeButton: true,
       content: (
         <button
           className={menuItemClassName}
@@ -128,6 +129,7 @@ export const AsideHeader = () => {
       id: "layout",
       condition: true,
       wrap: true,
+      nativeButton: true,
       content: (
         <button
           className={menuItemClassName}
@@ -222,7 +224,13 @@ export const AsideHeader = () => {
               if (!item.wrap) {
                 return <Fragment key={item.id}>{item.content}</Fragment>;
               }
-              return <DropdownMenuItem key={item.id} render={item.content} />;
+              return (
+                <DropdownMenuItem
+                  key={item.id}
+                  nativeButton={item.nativeButton ?? false}
+                  render={item.content}
+                />
+              );
             })}
           </DropdownMenuContent>
         </DropdownMenu>
