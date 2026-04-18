@@ -117,9 +117,9 @@ export const SettingsForm = () => {
               />
               <div
                 style={{ background: theme.color }}
-                className="border-border peer-data-[state=checked]:border-ring size-10 cursor-pointer rounded-full border shadow-xs transition-colors"
+                className="border-border peer-data-checked:border-ring size-10 cursor-pointer rounded-full border shadow-xs transition-colors"
               />
-              <span className="peer-data-[state=unchecked]:text-muted-foreground text-center text-xs">
+              <span className="peer-data-unchecked:text-muted-foreground text-center text-xs">
                 {theme.label}
               </span>
             </label>
