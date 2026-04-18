@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ProfileAvatar } from "@repo/ui/components/avatar";
+import { ProfileAvatar } from "@/components/profile-avatar";
 import { Button } from "@repo/ui/components/button";
 import {
   Drawer,
@@ -16,11 +16,11 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  dropdownMenuItemVariants,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@repo/ui/components/dropdown-menu";
 import { Separator } from "@repo/ui/components/separator";
+import { drawerItemVariants } from "@/lib/drawer-item";
 import { themes, useTheme } from "@/components/theme";
 import { useMediaQuery } from "@repo/ui/lib/utils";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -53,7 +53,7 @@ export const AsideHeader = () => {
   const currentThemeIndex = themes.findIndex((t) => t.value === theme);
   const currentTheme = themes[currentThemeIndex];
 
-  const drawerItemClassName = dropdownMenuItemVariants({
+  const drawerItemClassName = drawerItemVariants({
     className: "w-full justify-start h-10",
   });
 

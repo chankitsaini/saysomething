@@ -8,7 +8,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@repo/ui/components/drawer";
-import { dropdownMenuItemVariants } from "@repo/ui/components/dropdown-menu";
+import { drawerItemVariants } from "@/lib/drawer-item";
 import { toast } from "@repo/ui/components/sonner";
 import { ClipboardCopyIcon, ShareIcon } from "lucide-react";
 
@@ -28,7 +28,7 @@ export const ShareButton = ({ post }: Props) => {
     toast.success("📝 Copied to Clipboard");
   };
 
-  const menuItemClassName = dropdownMenuItemVariants({
+  const menuItemClassName = drawerItemVariants({
     className: "w-full justify-start h-10",
   });
 

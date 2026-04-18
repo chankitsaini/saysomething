@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ProfileAvatar } from "@repo/ui/components/avatar";
+import { ProfileAvatar } from "@/components/profile-avatar";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/ui/components/tooltip";
 import { useQuery } from "@tanstack/react-query";
 
