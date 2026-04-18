@@ -2,8 +2,8 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { Button } from "@repo/ui/button";
-import { Logo } from "@repo/ui/logo";
+import { Button } from "@repo/ui/components/button";
+import { Logo } from "@repo/ui/components/logo";
 
 import { AsideHeader } from "@/components/layout/aside-header";
 import { PageContent, PageHeader } from "@/components/layout/page-layout";
@@ -36,9 +36,12 @@ const Page = ({ error }: ErrorProps) => {
           </a>{" "}
           if it persists.
         </h1>
-        <Button className="self-start" variant="outline" asChild>
-          <Link href="/">Return Home</Link>
-        </Button>
+        <Button
+          className="self-start"
+          variant="outline"
+          nativeButton={false}
+          render={<Link href="/">Return Home</Link>}
+        />
       </PageContent>
       <AsideHeader />
     </section>

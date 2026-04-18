@@ -2,14 +2,14 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateUserInput } from "@repo/api/user/user-schema";
-import { Button } from "@repo/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@repo/ui/form";
-import { Input } from "@repo/ui/input";
-import { Label } from "@repo/ui/label";
-import { RadioGroup, RadioGroupItem } from "@repo/ui/radio-group";
-import { themes, useTheme } from "@repo/ui/theme";
-import { toast } from "@repo/ui/toast";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/ui/tooltip";
+import { Button } from "@repo/ui/components/button";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@repo/ui/components/form";
+import { Input } from "@repo/ui/components/input";
+import { Label } from "@repo/ui/components/label";
+import { RadioGroup, RadioGroupItem } from "@repo/ui/components/radio-group";
+import { themes, useTheme } from "@/components/theme";
+import { toast } from "@repo/ui/components/sonner";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/ui/components/tooltip";
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { CircleHelpIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -79,9 +79,7 @@ export const SettingsForm = () => {
                 <FormLabel>
                   Email
                   <Tooltip>
-                    <TooltipTrigger asChild>
-                      <CircleHelpIcon className="size-3" />
-                    </TooltipTrigger>
+                    <TooltipTrigger render={<CircleHelpIcon className="size-3" />} />
                     <TooltipContent>
                       You will continue to be anonymous, this email is just used for account
                       recovery.

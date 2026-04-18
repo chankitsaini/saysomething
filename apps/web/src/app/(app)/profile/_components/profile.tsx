@@ -1,8 +1,8 @@
 "use client";
 
-import { Card } from "@repo/ui/card";
-import { isDarkTheme, useTheme } from "@repo/ui/theme";
-import { useMediaQuery } from "@repo/ui/utils";
+import { Card } from "@repo/ui/components/card";
+import { isDarkTheme, useTheme } from "@/components/theme";
+import { useMediaQuery } from "@repo/ui/lib/utils";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { useTRPC } from "@/trpc/react";

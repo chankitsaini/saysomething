@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { POST_EXPIRY_DAYS_AGO } from "@repo/api/post/post-utils";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/ui/components/tooltip";
 import { addDays, formatDistance } from "date-fns";
 
 import type { RouterOutputs } from "@repo/api";

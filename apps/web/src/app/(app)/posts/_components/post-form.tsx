@@ -4,7 +4,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createPostInput } from "@repo/api/post/post-schema";
 import { POST_EXPIRY_DAYS_AGO } from "@repo/api/post/post-utils";
-import { Button } from "@repo/ui/button";
+import { Button } from "@repo/ui/components/button";
 import {
   Dialog,
   DialogContent,
@@ -12,7 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@repo/ui/dialog";
+} from "@repo/ui/components/dialog";
 import {
   Drawer,
   DrawerContent,
@@ -20,10 +20,10 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@repo/ui/drawer";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@repo/ui/form";
-import { toast } from "@repo/ui/toast";
-import { cn, useMediaQuery } from "@repo/ui/utils";
+} from "@repo/ui/components/drawer";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@repo/ui/components/form";
+import { toast } from "@repo/ui/components/sonner";
+import { cn, useMediaQuery } from "@repo/ui/lib/utils";
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { addDays, format } from "date-fns";
 import { PlusIcon } from "lucide-react";
@@ -172,11 +172,9 @@ export const NewPostButton = ({ placeholder }: PostFormProps) => {
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <Button size="icon" className="size-12">
-            <PlusIcon />
-            <span className="sr-only">New Post</span>
-          </Button>
+        <DialogTrigger render={<Button size="icon" className="size-12" />}>
+          <PlusIcon />
+          <span className="sr-only">New Post</span>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader className="sr-only">

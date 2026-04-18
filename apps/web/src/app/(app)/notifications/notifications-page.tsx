@@ -5,7 +5,7 @@ import {
   NotificationFeed as KnockNotificationFeed,
   KnockProvider,
 } from "@knocklabs/react";
-import { isDarkTheme, useTheme } from "@repo/ui/theme";
+import { isDarkTheme, useTheme } from "@/components/theme";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { useTRPC } from "@/trpc/react";

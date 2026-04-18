@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import { GlobalAlertDialog } from "@repo/ui/alert-dialog";
-import { ThemeProvider } from "@repo/ui/theme";
-import { GlobalToaster } from "@repo/ui/toast";
-import { TooltipProvider } from "@repo/ui/tooltip";
-import { cn } from "@repo/ui/utils";
+import { GlobalAlertDialog } from "@repo/ui/components/alert-dialog";
+import { ThemeProvider } from "@/components/theme";
+import { Toaster } from "@repo/ui/components/sonner";
+import { TooltipProvider } from "@repo/ui/components/tooltip";
+import { cn } from "@repo/ui/lib/utils";
 
 import { CapacitorProvider } from "@/components/providers/capacitor-provider";
 import { siteConfig } from "@/lib/site-config";
@@ -112,7 +112,7 @@ const RootLayout = (props: LayoutProps) => {
           <ThemeProvider>
             <TooltipProvider>
               <TRPCReactProvider>{props.children}</TRPCReactProvider>
-              <GlobalToaster />
+              <Toaster />
               <GlobalAlertDialog />
             </TooltipProvider>
           </ThemeProvider>

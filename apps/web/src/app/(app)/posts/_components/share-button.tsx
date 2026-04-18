@@ -7,9 +7,9 @@ import {
   DrawerDescription,
   DrawerHeader,
   DrawerTitle,
-} from "@repo/ui/drawer";
-import { dropdownMenuItemVariants } from "@repo/ui/dropdown-menu";
-import { toast } from "@repo/ui/toast";
+} from "@repo/ui/components/drawer";
+import { dropdownMenuItemVariants } from "@repo/ui/components/dropdown-menu";
+import { toast } from "@repo/ui/components/sonner";
 import { ClipboardCopyIcon, ShareIcon } from "lucide-react";
 
 import type { RouterOutputs } from "@repo/api";

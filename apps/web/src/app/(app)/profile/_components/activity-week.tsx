@@ -1,4 +1,4 @@
-import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/ui/components/tooltip";
 
 import type { Theme } from "./calendar-types";
 import { DEFAULT_WEEKDAY_LABELS, FULL_DAY_LABELS, getTheme } from "./calendar-util";
@@ -37,9 +37,7 @@ export const ActivityWeek = ({ data, theme: themeProp }: Props) => {
 
           return (
             <Tooltip key={day}>
-              <TooltipTrigger asChild>
-                <ellipse {...ellipseProps} />
-              </TooltipTrigger>
+              <TooltipTrigger render={<ellipse {...ellipseProps} />} />
               <TooltipContent>
                 {`${data[day]?.count} posts written on ${
                   FULL_DAY_LABELS[day as keyof typeof FULL_DAY_LABELS]

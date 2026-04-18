@@ -2,8 +2,8 @@
 
 import { Fragment, useState } from "react";
 import Link from "next/link";
-import { ProfileAvatar } from "@repo/ui/avatar";
-import { Button } from "@repo/ui/button";
+import { ProfileAvatar } from "@repo/ui/components/avatar";
+import { Button } from "@repo/ui/components/button";
 import {
   Drawer,
   DrawerContent,
@@ -11,7 +11,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@repo/ui/drawer";
+} from "@repo/ui/components/drawer";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,9 +19,9 @@ import {
   dropdownMenuItemVariants,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@repo/ui/dropdown-menu";
-import { themes, useTheme } from "@repo/ui/theme";
-import { useMediaQuery } from "@repo/ui/utils";
+} from "@repo/ui/components/dropdown-menu";
+import { themes, useTheme } from "@/components/theme";
+import { useMediaQuery } from "@repo/ui/lib/utils";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import {
   BookCheckIcon,
@@ -205,14 +205,14 @@ export const AsideHeader = () => {
     return (
       <div className="area-aside-header">
         <DropdownMenu open={open} onOpenChange={setOpen}>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" aria-label="Open menu">
-              <ProfileAvatar
-                className="size-8"
-                src={getAvatarUrl(user?.displayName || user?.id)}
-                alt="Profile"
-              />
-            </Button>
+          <DropdownMenuTrigger
+            render={<Button variant="ghost" size="icon" aria-label="Open menu" />}
+          >
+            <ProfileAvatar
+              className="size-8"
+              src={getAvatarUrl(user?.displayName || user?.id)}
+              alt="Profile"
+            />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-40" align="end">
             {menuItems.map((item) => {
@@ -222,11 +222,7 @@ export const AsideHeader = () => {
               if (!item.wrap) {
                 return <Fragment key={item.id}>{item.content}</Fragment>;
               }
-              return (
-                <DropdownMenuItem key={item.id} asChild>
-                  {item.content}
-                </DropdownMenuItem>
-              );
+              return <DropdownMenuItem key={item.id} render={item.content} />;
             })}
           </DropdownMenuContent>
         </DropdownMenu>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { cn } from "@repo/ui/utils";
+import { cn } from "@repo/ui/lib/utils";
 
 import type { FeedLayout } from "@/lib/feed-layout-actions";
 import type { RouterOutputs } from "@repo/api";

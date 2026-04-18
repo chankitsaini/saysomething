@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { cn } from "@repo/ui/utils";
+import { cn } from "@repo/ui/lib/utils";
 
 import { PostFeed } from "@/app/(app)/posts/_components/post-feed";
 import { NewPostButton, PostForm } from "@/app/(app)/posts/_components/post-form";
