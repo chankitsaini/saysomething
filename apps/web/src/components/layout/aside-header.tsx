@@ -20,6 +20,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@repo/ui/components/dropdown-menu";
+import { Separator } from "@repo/ui/components/separator";
 import { themes, useTheme } from "@/components/theme";
 import { useMediaQuery } from "@repo/ui/lib/utils";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -218,7 +219,7 @@ export const AsideHeader = () => {
           </DrawerHeader>
           {menuItems.map((item) => {
             if (!item.condition) return null;
-            if (item.kind === "separator") return <DropdownMenuSeparator key={item.id} />;
+            if (item.kind === "separator") return <Separator key={item.id} className="my-1" />;
             if (item.kind === "link") {
               return (
                 <Link
