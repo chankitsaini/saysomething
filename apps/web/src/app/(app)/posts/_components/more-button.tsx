@@ -18,7 +18,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@repo/ui/components/drawer";
-import { drawerItemVariants } from "@/lib/drawer-item";
+import { drawerItemClass } from "@/lib/drawer-item";
 import { toast } from "@repo/ui/components/sonner";
 import { useMediaQuery } from "@repo/ui/lib/utils";
 import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
@@ -90,9 +90,7 @@ export const MoreButton = ({ post }: Props) => {
     }
   };
 
-  const buttonClassName = isDesktop
-    ? "rounded-sm p-8"
-    : drawerItemVariants({ className: "w-full justify-start h-10" });
+  const buttonClassName = isDesktop ? "rounded-sm p-8" : drawerItemClass;
 
   const menuItems = [
     <Button

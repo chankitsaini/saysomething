@@ -8,7 +8,7 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@repo/ui/components/drawer";
-import { drawerItemVariants } from "@/lib/drawer-item";
+import { drawerItemClass } from "@/lib/drawer-item";
 import { toast } from "@repo/ui/components/sonner";
 import { ClipboardCopyIcon, ShareIcon } from "lucide-react";
 
@@ -27,10 +27,6 @@ export const ShareButton = ({ post }: Props) => {
     await navigator.clipboard.writeText(postUrl);
     toast.success("📝 Copied to Clipboard");
   };
-
-  const menuItemClassName = drawerItemVariants({
-    className: "w-full justify-start h-10",
-  });
 
   return (
     <>
@@ -58,7 +54,7 @@ export const ShareButton = ({ post }: Props) => {
             <DrawerDescription>Share this tiny beautiful letter with the world</DrawerDescription>
           </DrawerHeader>
           <a
-            className={menuItemClassName}
+            className={drawerItemClass}
             href={`https://www.facebook.com/sharer/sharer.php?u=${encodedPostUrl}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -76,7 +72,7 @@ export const ShareButton = ({ post }: Props) => {
             Share on Facebook
           </a>
           <a
-            className={menuItemClassName}
+            className={drawerItemClass}
             href={`http://twitter.com/share?url=${encodedPostUrl}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -94,7 +90,7 @@ export const ShareButton = ({ post }: Props) => {
             </svg>
             Share on Twitter
           </a>
-          <button className={menuItemClassName} onClick={copyLink}>
+          <button className={drawerItemClass} onClick={copyLink}>
             <ClipboardCopyIcon aria-hidden="true" className="size-4" />
             Copy Link
           </button>

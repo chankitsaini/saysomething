@@ -20,7 +20,7 @@ import {
   DropdownMenuTrigger,
 } from "@repo/ui/components/dropdown-menu";
 import { Separator } from "@repo/ui/components/separator";
-import { drawerItemVariants } from "@/lib/drawer-item";
+import { drawerItemClass } from "@/lib/drawer-item";
 import { themes, useTheme } from "@/components/theme";
 import { useMediaQuery } from "@repo/ui/lib/utils";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -53,20 +53,16 @@ export const AsideHeader = () => {
   const currentThemeIndex = themes.findIndex((t) => t.value === theme);
   const currentTheme = themes[currentThemeIndex];
 
-  const drawerItemClassName = drawerItemVariants({
-    className: "w-full justify-start h-10",
-  });
-
   type MenuEntry =
-    | { kind: "link"; id: string; condition: unknown; href: string; target?: string; icon: React.ReactNode; label: string }
-    | { kind: "action"; id: string; condition: unknown; onClick: () => void | Promise<void>; icon: React.ReactNode; label: string }
-    | { kind: "separator"; id: string; condition: unknown };
+    | { kind: "link"; id: string; condition: boolean; href: string; target?: string; icon: React.ReactNode; label: string }
+    | { kind: "action"; id: string; condition: boolean; onClick: () => void | Promise<void>; icon: React.ReactNode; label: string }
+    | { kind: "separator"; id: string; condition: boolean };
 
   const menuItems: MenuEntry[] = [
     {
       kind: "link",
       id: "profile",
-      condition: user,
+      condition: !!user,
       href: `/profile/${user?.id}`,
       icon: <UserIcon aria-hidden="true" className="size-4" />,
       label: "Profile",
@@ -74,7 +70,7 @@ export const AsideHeader = () => {
     {
       kind: "link",
       id: "settings",
-      condition: user,
+      condition: !!user,
       href: "/settings",
       icon: <SettingsIcon aria-hidden="true" className="size-4" />,
       label: "Settings",
@@ -224,7 +220,7 @@ export const AsideHeader = () => {
               return (
                 <Link
                   key={item.id}
-                  className={drawerItemClassName}
+                  className={drawerItemClass}
                   href={item.href}
                   target={item.target}
                   onClick={() => setOpen(false)}
@@ -238,7 +234,7 @@ export const AsideHeader = () => {
               <button
                 key={item.id}
                 type="button"
-                className={drawerItemClassName}
+                className={drawerItemClass}
                 onClick={() => void item.onClick()}
               >
                 {item.icon}
