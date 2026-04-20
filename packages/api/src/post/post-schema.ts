@@ -5,12 +5,10 @@ import type { like, post } from "@repo/db/drizzle-schema";
 export const getPostsByUserInput = z.object({
   userId: z.string(),
 });
-export type GetPostsByUserInput = z.infer<typeof getPostsByUserInput>;
 
 export const getPostInput = z.object({
   postId: z.string(),
 });
-export type GetPostInput = z.infer<typeof getPostInput>;
 
 export const getFeedInput = z.object({
   userId: z.string().optional(),
@@ -23,7 +21,6 @@ export const getFeedInput = z.object({
     .optional(),
   limit: z.number().optional(),
 });
-export type GetFeedInput = z.infer<typeof getFeedInput>;
 
 export const createPostInput = z.object({
   parentId: z.string().optional(),
@@ -36,7 +33,6 @@ export type CreatePostInput = z.infer<typeof createPostInput>;
 export const deletePostInput = z.object({
   postId: z.string(),
 });
-export type DeletePostInput = z.infer<typeof deletePostInput>;
 
 type DbPost = typeof post.$inferSelect & {
   likes?: (typeof like.$inferSelect)[];

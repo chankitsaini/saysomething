@@ -25,6 +25,7 @@ import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { BanIcon, FlagIcon, MoreVerticalIcon, Trash2Icon, TriangleAlertIcon } from "lucide-react";
 
 import type { RouterOutputs } from "@repo/api";
+import { siteConfig } from "@/lib/site-config";
 import { useTRPC } from "@/trpc/react";
 
 type Props = {
@@ -98,7 +99,10 @@ export const MoreButton = ({ post }: Props) => {
       nativeButton={false}
       className={buttonClassName}
       render={
-        <a href={`mailto:kai@kyh.io?subject=Report YS Post: ${post.id}`} target="_blank" />
+        <a
+          href={`mailto:${siteConfig.supportEmail}?subject=Report YS Post: ${post.id}`}
+          target="_blank"
+        />
       }
     >
       <FlagIcon aria-hidden="true" className="size-4" />

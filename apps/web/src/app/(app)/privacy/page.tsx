@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { PageContent, PageHeader } from "@/components/layout/page-layout";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -90,8 +91,8 @@ const Page = () => (
       <h4>Contact Us</h4>
       <p>
         If you have questions about this Privacy Policy or our practices, please contact us at:{" "}
-        <a href="mailto:kai@kyh.io?subject=Privacy" target="_blank">
-          kai@kyh.io
+        <a href={`mailto:${siteConfig.supportEmail}?subject=Privacy`} target="_blank">
+          {siteConfig.supportEmail}
         </a>
       </p>
 

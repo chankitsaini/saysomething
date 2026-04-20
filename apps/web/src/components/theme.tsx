@@ -37,7 +37,7 @@ export const themes = [
   },
 ];
 
-export const isDarkTheme = (theme?: string) => (theme ? theme.includes("dark") : false);
+export const isDarkTheme = (theme?: string) => theme === "dark" || theme === "dark-purple";
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   return (

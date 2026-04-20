@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import {
@@ -11,7 +11,6 @@ import {
 import { buttonVariants } from "@repo/ui/components/button";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { useIconAnimation } from "@/components/animations/use-icon-animation";
 import { useTRPC } from "@/trpc/react";
 
 const LottiePlayer = dynamic(
@@ -20,6 +19,19 @@ const LottiePlayer = dynamic(
     ssr: false,
   },
 );
+
+type DotLottie = { play: () => void };
+
+const useIconAnimation = () => {
+  const dotLottieRef = useRef<DotLottie>(null);
+  return {
+    setDotLottie: (dotLottie: DotLottie) => {
+      dotLottieRef.current = dotLottie;
+    },
+    onMouseEnter: () => dotLottieRef.current?.play(),
+    onTouchStart: () => dotLottieRef.current?.play(),
+  };
+};
 
 export const Sidebar = () => {
   const trpc = useTRPC();

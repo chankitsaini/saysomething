@@ -37,6 +37,7 @@ import {
 import { useCardStack } from "@/app/(app)/posts/_components/card-stack";
 import { getAvatarUrl } from "@/lib/avatars";
 import { toggleFeedLayout } from "@/lib/feed-layout-actions";
+import { siteConfig } from "@/lib/site-config";
 import { useTRPC } from "@/trpc/react";
 
 export const AsideHeader = () => {
@@ -123,7 +124,7 @@ export const AsideHeader = () => {
       kind: "link",
       id: "support",
       condition: true,
-      href: `mailto:kai@kyh.io?subject=Support: ${user?.id}`,
+      href: `mailto:${siteConfig.supportEmail}?subject=Support: ${user?.id}`,
       target: "_blank",
       icon: <HelpCircleIcon aria-hidden="true" className="size-4" />,
       label: "Support",

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PageContent, PageHeader } from "@/components/layout/page-layout";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Terms of Use",
@@ -115,8 +116,8 @@ const Page = () => (
       <h4>Contact Information</h4>
       <p>
         For any questions about these Terms, please contact us at:{" "}
-        <a href="mailto:kai@kyh.io?subject=Privacy" target="_blank">
-          kai@kyh.io
+        <a href={`mailto:${siteConfig.supportEmail}?subject=Terms`} target="_blank">
+          {siteConfig.supportEmail}
         </a>
       </p>
     </PageContent>

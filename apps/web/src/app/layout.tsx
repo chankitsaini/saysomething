@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import { GlobalAlertDialog } from "@repo/ui/components/alert-dialog";
 import { ThemeProvider } from "@/components/theme";
 import { Toaster } from "@repo/ui/components/sonner";
 import { TooltipProvider } from "@repo/ui/components/tooltip";
@@ -113,7 +112,6 @@ const RootLayout = (props: LayoutProps) => {
             <TooltipProvider>
               <TRPCReactProvider>{props.children}</TRPCReactProvider>
               <Toaster />
-              <GlobalAlertDialog />
             </TooltipProvider>
           </ThemeProvider>
         </CapacitorProvider>
