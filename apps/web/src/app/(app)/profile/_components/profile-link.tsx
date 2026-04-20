@@ -54,7 +54,10 @@ export const ProfileLink = ({ userId, displayName }: Props) => {
       >
         {displayName || "Anonymous"}
       </TooltipTrigger>
-      <TooltipContent className="bg-popover text-popover-foreground shadow-md">
+      <TooltipContent
+        className="bg-popover text-popover-foreground shadow-md"
+        arrowClassName="bg-popover fill-popover"
+      >
         <Link href={`/profile/${userId}`}>
           <ProfileTooltipContent userId={userId} displayName={displayName} />
         </Link>
