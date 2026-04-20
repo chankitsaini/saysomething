@@ -8,7 +8,7 @@ import {
   useNotifications,
   useNotificationStore,
 } from "@knocklabs/react";
-import { Button } from "@repo/ui/components/button";
+import { buttonVariants } from "@repo/ui/components/button";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { useIconAnimation } from "@/components/animations/use-icon-animation";
@@ -46,12 +46,7 @@ export const Sidebar = () => {
   return (
     <section className="area-nav">
       <nav className="bg-background flex w-full items-start justify-around gap-1 px-2 pb-2 md:-ml-4 md:w-auto md:flex-col md:px-0 md:py-5">
-        <Button
-          variant="ghost"
-          {...homeControlProps}
-          nativeButton={false}
-          render={<Link href="/" />}
-        >
+        <Link href="/" className={buttonVariants({ variant: "ghost" })} {...homeControlProps}>
           <LottiePlayer
             src="/icons/home-icon.json"
             className={iconClassName}
@@ -59,12 +54,11 @@ export const Sidebar = () => {
             lottieRef={homeSetDotLottie}
           />
           <span className="sr-only md:not-sr-only">Home</span>
-        </Button>
-        <Button
-          variant="ghost"
+        </Link>
+        <Link
+          href="/notifications"
+          className={buttonVariants({ variant: "ghost" })}
           {...bellControlProps}
-          nativeButton={false}
-          render={<Link href="/notifications" />}
         >
           <span className="relative">
             <LottiePlayer
@@ -78,12 +72,11 @@ export const Sidebar = () => {
             )}
           </span>
           <span className="sr-only md:not-sr-only">Notifications</span>
-        </Button>
-        <Button
-          variant="ghost"
+        </Link>
+        <Link
+          href={user ? `/profile/${user.id}` : `/auth/sign-up`}
+          className={buttonVariants({ variant: "ghost" })}
           {...userControlProps}
-          nativeButton={false}
-          render={<Link href={user ? `/profile/${user.id}` : `/auth/sign-up`} />}
         >
           <LottiePlayer
             src="/icons/user-icon.json"
@@ -92,7 +85,7 @@ export const Sidebar = () => {
             lottieRef={userSetDotLottie}
           />
           <span className="sr-only md:not-sr-only">Profile</span>
-        </Button>
+        </Link>
       </nav>
       <footer className="border-t-border mt-auto hidden flex-col gap-2 border-t py-4 text-xs md:flex">
         <div>

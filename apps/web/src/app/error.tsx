@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { Button } from "@repo/ui/components/button";
+import { buttonVariants } from "@repo/ui/components/button";
 import { Logo } from "@repo/ui/components/logo";
 
 import { AsideHeader } from "@/components/layout/aside-header";
@@ -35,14 +35,9 @@ const Page = ({ error }: ErrorProps) => {
           </a>{" "}
           if it persists.
         </h1>
-        <Button
-          className="self-start"
-          variant="outline"
-          nativeButton={false}
-          render={<Link href="/" />}
-        >
+        <Link href="/" className={buttonVariants({ variant: "outline", className: "self-start" })}>
           Return Home
-        </Button>
+        </Link>
       </PageContent>
       <AsideHeader />
     </section>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from "@repo/ui/components/button";
+import { buttonVariants } from "@repo/ui/components/button";
 import { Logo } from "@repo/ui/components/logo";
 
 import { AsideHeader } from "@/components/layout/aside-header";
@@ -24,14 +24,9 @@ const Page = () => {
         <PageHeader title="Page not found" />
         <PageContent className="flex flex-col gap-5">
           <h1>Could not find the page you were looking for</h1>
-          <Button
-            className="self-start"
-            variant="outline"
-            nativeButton={false}
-            render={<Link href="/" />}
-          >
+          <Link href="/" className={buttonVariants({ variant: "outline", className: "self-start" })}>
             Return Home
-          </Button>
+          </Link>
         </PageContent>
         <AsideHeader />
       </section>
