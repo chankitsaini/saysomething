@@ -9,9 +9,8 @@ import {
   useNotificationStore,
 } from "@knocklabs/react";
 import { buttonVariants } from "@repo/ui/components/button";
-import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { useTRPC } from "@/trpc/react";
+import { useWorkspaceUser } from "@/lib/use-workspace-user";
 
 const LottiePlayer = dynamic(
   () => import("@lottiefiles/react-lottie-player").then((mod) => mod.Player),
@@ -34,10 +33,7 @@ const useIconAnimation = () => {
 };
 
 export const Sidebar = () => {
-  const trpc = useTRPC();
-  const {
-    data: { user },
-  } = useSuspenseQuery(trpc.auth.workspace.queryOptions());
+  const user = useWorkspaceUser();
 
   const knock = useAuthenticatedKnockClient(
     process.env.NEXT_PUBLIC_KNOCK_PUBLIC_API_KEY!,

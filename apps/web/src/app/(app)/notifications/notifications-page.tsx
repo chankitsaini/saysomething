@@ -6,15 +6,11 @@ import {
   KnockProvider,
 } from "@knocklabs/react";
 import { isDarkTheme, useTheme } from "@/components/theme";
-import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { useTRPC } from "@/trpc/react";
+import { useWorkspaceUser } from "@/lib/use-workspace-user";
 
 export const NotificationsPage = () => {
-  const trpc = useTRPC();
-  const {
-    data: { user },
-  } = useSuspenseQuery(trpc.auth.workspace.queryOptions());
+  const user = useWorkspaceUser();
   const { resolvedTheme } = useTheme();
 
   return (

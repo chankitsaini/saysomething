@@ -24,13 +24,14 @@ import {
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/form";
 import { toast } from "@repo/ui/components/sonner";
 import { cn, useMediaQuery } from "@repo/ui/lib/utils";
-import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { addDays, format } from "date-fns";
 import { PlusIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 import type { CreatePostInput } from "@repo/api/post/post-schema";
 import { balloons } from "@/components/animations/balloons";
+import { useWorkspaceUser } from "@/lib/use-workspace-user";
 import { useTRPC } from "@/trpc/react";
 
 const postFormKey = "post-form";
@@ -44,9 +45,7 @@ type PostFormProps = {
 
 export const PostForm = ({ placeholder, parentId, onSuccess, contained }: PostFormProps) => {
   const trpc = useTRPC();
-  const {
-    data: { user },
-  } = useSuspenseQuery(trpc.auth.workspace.queryOptions());
+  const user = useWorkspaceUser();
 
   const form = useForm({
     resolver: zodResolver(createPostInput),

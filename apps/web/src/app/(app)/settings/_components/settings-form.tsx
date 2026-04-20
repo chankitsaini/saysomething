@@ -9,21 +9,20 @@ import { RadioGroup, RadioGroupItem } from "@repo/ui/components/radio-group";
 import { themes, useTheme } from "@/components/theme";
 import { toast } from "@repo/ui/components/sonner";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/ui/components/tooltip";
-import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { CircleHelpIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 import type { UpdateUserInput } from "@repo/api/user/user-schema";
+import { useWorkspaceUser } from "@/lib/use-workspace-user";
 import { useTRPC } from "@/trpc/react";
 
 export const SettingsForm = () => {
   const trpc = useTRPC();
   const router = useRouter();
   const { theme, setTheme } = useTheme();
-  const {
-    data: { user },
-  } = useSuspenseQuery(trpc.auth.workspace.queryOptions());
+  const user = useWorkspaceUser();
   const updateUser = useMutation(trpc.user.updateUser.mutationOptions());
   const requestPasswordReset = useMutation(trpc.auth.requestPasswordReset.mutationOptions());
   const signOut = useMutation(

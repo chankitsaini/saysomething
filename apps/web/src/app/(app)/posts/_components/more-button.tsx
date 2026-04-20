@@ -21,11 +21,12 @@ import {
 import { drawerItemClass } from "@/lib/drawer-item";
 import { toast } from "@repo/ui/components/sonner";
 import { useMediaQuery } from "@repo/ui/lib/utils";
-import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { BanIcon, FlagIcon, MoreVerticalIcon, Trash2Icon, TriangleAlertIcon } from "lucide-react";
 
 import type { RouterOutputs } from "@repo/api";
 import { siteConfig } from "@/lib/site-config";
+import { useWorkspaceUser } from "@/lib/use-workspace-user";
 import { useTRPC } from "@/trpc/react";
 
 type Props = {
@@ -34,9 +35,7 @@ type Props = {
 
 export const MoreButton = ({ post }: Props) => {
   const trpc = useTRPC();
-  const {
-    data: { user },
-  } = useSuspenseQuery(trpc.auth.workspace.queryOptions());
+  const user = useWorkspaceUser();
   const isDesktop = useMediaQuery();
 
   const deleteMutation = useMutation(

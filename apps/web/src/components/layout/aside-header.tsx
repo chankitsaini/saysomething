@@ -23,7 +23,6 @@ import { Separator } from "@repo/ui/components/separator";
 import { drawerItemClass } from "@/lib/drawer-item";
 import { themes, useTheme } from "@/components/theme";
 import { useMediaQuery } from "@repo/ui/lib/utils";
-import { useSuspenseQuery } from "@tanstack/react-query";
 import {
   BookCheckIcon,
   GlobeLockIcon,
@@ -38,13 +37,10 @@ import { useCardStack } from "@/app/(app)/posts/_components/card-stack";
 import { getAvatarUrl } from "@/lib/avatars";
 import { toggleFeedLayout } from "@/lib/feed-layout-actions";
 import { siteConfig } from "@/lib/site-config";
-import { useTRPC } from "@/trpc/react";
+import { useWorkspaceUser } from "@/lib/use-workspace-user";
 
 export const AsideHeader = () => {
-  const trpc = useTRPC();
-  const {
-    data: { user },
-  } = useSuspenseQuery(trpc.auth.workspace.queryOptions());
+  const user = useWorkspaceUser();
   const { theme, setTheme } = useTheme();
   const isDesktop = useMediaQuery();
   const { setCurrentIndex } = useCardStack();
