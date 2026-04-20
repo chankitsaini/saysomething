@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useState } from "react";
-import { Button } from "@repo/ui/button";
+import { Button } from "@repo/ui/components/button";
 import {
   Dialog,
   DialogContent,
@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@repo/ui/dialog";
+} from "@repo/ui/components/dialog";
 import {
   Drawer,
   DrawerContent,
@@ -17,14 +17,16 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@repo/ui/drawer";
-import { dropdownMenuItemVariants } from "@repo/ui/dropdown-menu";
-import { toast } from "@repo/ui/toast";
-import { useMediaQuery } from "@repo/ui/utils";
-import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
+} from "@repo/ui/components/drawer";
+import { drawerItemClass } from "@/lib/drawer-item";
+import { toast } from "@repo/ui/components/sonner";
+import { useMediaQuery } from "@repo/ui/lib/utils";
+import { useMutation } from "@tanstack/react-query";
 import { BanIcon, FlagIcon, MoreVerticalIcon, Trash2Icon, TriangleAlertIcon } from "lucide-react";
 
 import type { RouterOutputs } from "@repo/api";
+import { siteConfig } from "@/lib/site-config";
+import { useWorkspaceUser } from "@/lib/use-workspace-user";
 import { useTRPC } from "@/trpc/react";
 
 type Props = {
@@ -33,9 +35,7 @@ type Props = {
 
 export const MoreButton = ({ post }: Props) => {
   const trpc = useTRPC();
-  const {
-    data: { user },
-  } = useSuspenseQuery(trpc.auth.workspace.queryOptions());
+  const user = useWorkspaceUser();
   const isDesktop = useMediaQuery();
 
   const deleteMutation = useMutation(
@@ -90,16 +90,22 @@ export const MoreButton = ({ post }: Props) => {
     }
   };
 
-  const buttonClassName = isDesktop
-    ? "rounded-sm p-8"
-    : dropdownMenuItemVariants({ className: "w-full justify-start h-10" });
+  const buttonClassName = isDesktop ? "rounded-sm p-8" : drawerItemClass;
 
   const menuItems = [
-    <Button variant="ghost" asChild className={buttonClassName}>
-      <a href={`mailto:kai@kyh.io?subject=Report YS Post: ${post.id}`} target="_blank">
-        <FlagIcon aria-hidden="true" className="size-4" />
-        Report Post
-      </a>
+    <Button
+      variant="ghost"
+      nativeButton={false}
+      className={buttonClassName}
+      render={
+        <a
+          href={`mailto:${siteConfig.supportEmail}?subject=Report YS Post: ${post.id}`}
+          target="_blank"
+        />
+      }
+    >
+      <FlagIcon aria-hidden="true" className="size-4" />
+      Report Post
     </Button>,
     !!user && isPostOwner && (
       <Button
@@ -139,10 +145,8 @@ export const MoreButton = ({ post }: Props) => {
   if (isDesktop) {
     return (
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogTrigger asChild>
-          <button className="hover:bg-accent size-8 cursor-pointer rounded-lg p-2 transition">
-            <MoreVerticalIcon className="size-4" />
-          </button>
+        <DialogTrigger className="hover:bg-accent size-8 cursor-pointer rounded-lg p-2 transition">
+          <MoreVerticalIcon className="size-4" />
         </DialogTrigger>
         <DialogContent showCloseButton={false} className="p-0">
           <DialogHeader className="sr-only">

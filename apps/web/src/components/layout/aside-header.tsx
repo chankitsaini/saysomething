@@ -1,9 +1,9 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { ProfileAvatar } from "@repo/ui/avatar";
-import { Button } from "@repo/ui/button";
+import { ProfileAvatar } from "@/components/profile-avatar";
+import { Button } from "@repo/ui/components/button";
 import {
   Drawer,
   DrawerContent,
@@ -11,18 +11,18 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@repo/ui/drawer";
+} from "@repo/ui/components/drawer";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  dropdownMenuItemVariants,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@repo/ui/dropdown-menu";
-import { themes, useTheme } from "@repo/ui/theme";
-import { useMediaQuery } from "@repo/ui/utils";
-import { useSuspenseQuery } from "@tanstack/react-query";
+} from "@repo/ui/components/dropdown-menu";
+import { Separator } from "@repo/ui/components/separator";
+import { drawerItemClass } from "@/lib/drawer-item";
+import { themes, useTheme } from "@/components/theme";
+import { useMediaQuery } from "@repo/ui/lib/utils";
 import {
   BookCheckIcon,
   GlobeLockIcon,
@@ -36,13 +36,11 @@ import {
 import { useCardStack } from "@/app/(app)/posts/_components/card-stack";
 import { getAvatarUrl } from "@/lib/avatars";
 import { toggleFeedLayout } from "@/lib/feed-layout-actions";
-import { useTRPC } from "@/trpc/react";
+import { siteConfig } from "@/lib/site-config";
+import { useWorkspaceUser } from "@/lib/use-workspace-user";
 
 export const AsideHeader = () => {
-  const trpc = useTRPC();
-  const {
-    data: { user },
-  } = useSuspenseQuery(trpc.auth.workspace.queryOptions());
+  const user = useWorkspaceUser();
   const { theme, setTheme } = useTheme();
   const isDesktop = useMediaQuery();
   const { setCurrentIndex } = useCardStack();
@@ -52,152 +50,104 @@ export const AsideHeader = () => {
   const currentThemeIndex = themes.findIndex((t) => t.value === theme);
   const currentTheme = themes[currentThemeIndex];
 
-  const menuItemClassName = dropdownMenuItemVariants({
-    className: "w-full justify-start h-10",
-  });
+  type MenuEntry =
+    | { kind: "link"; id: string; condition: boolean; href: string; target?: string; icon: React.ReactNode; label: string }
+    | { kind: "action"; id: string; condition: boolean; onClick: () => void | Promise<void>; icon: React.ReactNode; label: string }
+    | { kind: "separator"; id: string; condition: boolean };
 
-  const menuItems = [
+  const menuItems: MenuEntry[] = [
     {
+      kind: "link",
       id: "profile",
-      condition: user,
-      wrap: true,
-      content: (
-        <Link
-          className={menuItemClassName}
-          href={`/profile/${user?.id}`}
-          onClick={() => setOpen(false)}
-        >
-          <UserIcon aria-hidden="true" className="size-4" />
-          Profile
-        </Link>
-      ),
+      condition: !!user,
+      href: `/profile/${user?.id}`,
+      icon: <UserIcon aria-hidden="true" className="size-4" />,
+      label: "Profile",
     },
     {
+      kind: "link",
       id: "settings",
-      condition: user,
-      wrap: true,
-      content: (
-        <Link className={menuItemClassName} href="/settings" onClick={() => setOpen(false)}>
-          <SettingsIcon aria-hidden="true" className="size-4" />
-          Settings
-        </Link>
-      ),
+      condition: !!user,
+      href: "/settings",
+      icon: <SettingsIcon aria-hidden="true" className="size-4" />,
+      label: "Settings",
     },
     {
+      kind: "link",
       id: "login",
       condition: !user,
-      wrap: true,
-      content: (
-        <Link className={menuItemClassName} href="/auth/sign-in" onClick={() => setOpen(false)}>
-          <UserIcon aria-hidden="true" className="size-4" />
-          Login
-        </Link>
-      ),
+      href: "/auth/sign-in",
+      icon: <UserIcon aria-hidden="true" className="size-4" />,
+      label: "Login",
     },
+    { kind: "separator", id: "separator-1", condition: true },
     {
-      id: "separator-1",
-      condition: true,
-      wrap: false,
-      content: <DropdownMenuSeparator />,
-    },
-    {
+      kind: "action",
       id: "theme",
       condition: true,
-      wrap: true,
-      content: (
-        <button
-          className={menuItemClassName}
-          onClick={() => {
-            setOpen(false);
-            const nextThemeIndex = (currentThemeIndex + 1) % themes.length;
-            const nextTheme = themes[nextThemeIndex];
-            setTheme(nextTheme?.value ?? "system");
-          }}
-        >
-          <span className="grid size-4 place-content-center">
-            <span
-              className="size-3 rounded-full ring"
-              style={{ background: currentTheme?.color }}
-            />
-          </span>
-          Theme
-        </button>
+      onClick: () => {
+        setOpen(false);
+        const nextThemeIndex = (currentThemeIndex + 1) % themes.length;
+        const nextTheme = themes[nextThemeIndex];
+        setTheme(nextTheme?.value ?? "system");
+      },
+      icon: (
+        <span className="grid size-4 place-content-center">
+          <span
+            className="size-3 rounded-full ring"
+            style={{ background: currentTheme?.color }}
+          />
+        </span>
       ),
+      label: "Theme",
     },
     {
+      kind: "action",
       id: "layout",
       condition: true,
-      wrap: true,
-      content: (
-        <button
-          className={menuItemClassName}
-          onClick={async () => {
-            await toggleFeedLayout();
-            setTimeout(() => {
-              setOpen(false);
-              setCurrentIndex(0);
-            }, 50);
-          }}
-        >
-          <LayoutDashboardIcon aria-hidden="true" className="size-4" />
-          Layout
-        </button>
-      ),
+      onClick: async () => {
+        await toggleFeedLayout();
+        setTimeout(() => {
+          setOpen(false);
+          setCurrentIndex(0);
+        }, 50);
+      },
+      icon: <LayoutDashboardIcon aria-hidden="true" className="size-4" />,
+      label: "Layout",
     },
+    { kind: "separator", id: "separator-2", condition: true },
     {
-      id: "separator-2",
-      condition: true,
-      wrap: false,
-      content: <DropdownMenuSeparator />,
-    },
-    {
+      kind: "link",
       id: "support",
       condition: true,
-      wrap: true,
-      content: (
-        <Link
-          className={menuItemClassName}
-          href={`mailto:kai@kyh.io?subject=Support: ${user?.id}`}
-          target="_blank"
-          onClick={() => setOpen(false)}
-        >
-          <HelpCircleIcon aria-hidden="true" className="size-4" />
-          Support
-        </Link>
-      ),
+      href: `mailto:${siteConfig.supportEmail}?subject=Support: ${user?.id}`,
+      target: "_blank",
+      icon: <HelpCircleIcon aria-hidden="true" className="size-4" />,
+      label: "Support",
     },
     {
+      kind: "link",
       id: "about",
       condition: !isDesktop,
-      wrap: true,
-      content: (
-        <Link className={menuItemClassName} href="/about" onClick={() => setOpen(false)}>
-          <BookCheckIcon aria-hidden="true" className="size-4" />
-          About
-        </Link>
-      ),
+      href: "/about",
+      icon: <BookCheckIcon aria-hidden="true" className="size-4" />,
+      label: "About",
     },
     {
+      kind: "link",
       id: "privacy",
       condition: !isDesktop,
-      wrap: true,
-      content: (
-        <Link className={menuItemClassName} href="/privacy" onClick={() => setOpen(false)}>
-          <GlobeLockIcon aria-hidden="true" className="size-4" />
-          Privacy
-        </Link>
-      ),
+      href: "/privacy",
+      icon: <GlobeLockIcon aria-hidden="true" className="size-4" />,
+      label: "Privacy",
     },
     {
+      kind: "link",
       id: "terms",
       condition: !isDesktop,
-      wrap: true,
-      content: (
-        <Link className={menuItemClassName} href="/terms" onClick={() => setOpen(false)}>
-          <HandshakeIcon aria-hidden="true" className="size-4" />
-          Terms
-        </Link>
-      ),
+      href: "/terms",
+      icon: <HandshakeIcon aria-hidden="true" className="size-4" />,
+      label: "Terms",
     },
   ];
 
@@ -205,26 +155,35 @@ export const AsideHeader = () => {
     return (
       <div className="area-aside-header">
         <DropdownMenu open={open} onOpenChange={setOpen}>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" aria-label="Open menu">
-              <ProfileAvatar
-                className="size-8"
-                src={getAvatarUrl(user?.displayName || user?.id)}
-                alt="Profile"
-              />
-            </Button>
+          <DropdownMenuTrigger
+            render={<Button variant="ghost" size="icon" aria-label="Open menu" />}
+          >
+            <ProfileAvatar
+              className="size-8"
+              src={getAvatarUrl(user?.displayName || user?.id)}
+              alt="Profile"
+            />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-40" align="end">
             {menuItems.map((item) => {
-              if (!item.condition) {
-                return null;
-              }
-              if (!item.wrap) {
-                return <Fragment key={item.id}>{item.content}</Fragment>;
+              if (!item.condition) return null;
+              if (item.kind === "separator") return <DropdownMenuSeparator key={item.id} />;
+              if (item.kind === "link") {
+                return (
+                  <DropdownMenuItem
+                    key={item.id}
+                    render={<Link href={item.href} target={item.target} />}
+                    onClick={() => setOpen(false)}
+                  >
+                    {item.icon}
+                    {item.label}
+                  </DropdownMenuItem>
+                );
               }
               return (
-                <DropdownMenuItem key={item.id} asChild>
-                  {item.content}
+                <DropdownMenuItem key={item.id} onClick={item.onClick}>
+                  {item.icon}
+                  {item.label}
                 </DropdownMenuItem>
               );
             })}
@@ -252,10 +211,33 @@ export const AsideHeader = () => {
             <DrawerDescription>Settings options</DrawerDescription>
           </DrawerHeader>
           {menuItems.map((item) => {
-            if (!item.condition) {
-              return null;
+            if (!item.condition) return null;
+            if (item.kind === "separator") return <Separator key={item.id} className="my-1" />;
+            if (item.kind === "link") {
+              return (
+                <Link
+                  key={item.id}
+                  className={drawerItemClass}
+                  href={item.href}
+                  target={item.target}
+                  onClick={() => setOpen(false)}
+                >
+                  {item.icon}
+                  {item.label}
+                </Link>
+              );
             }
-            return <Fragment key={item.id}>{item.content}</Fragment>;
+            return (
+              <button
+                key={item.id}
+                type="button"
+                className={drawerItemClass}
+                onClick={() => void item.onClick()}
+              >
+                {item.icon}
+                {item.label}
+              </button>
+            );
           })}
         </DrawerContent>
       </Drawer>

@@ -57,8 +57,6 @@
   --radius-radius: var(--radius);
 }
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 .dark {
   --background: hsl(60 6% 5%);
   --foreground: hsl(0 0% 98%);

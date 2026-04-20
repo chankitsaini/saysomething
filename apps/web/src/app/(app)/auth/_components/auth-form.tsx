@@ -4,10 +4,10 @@ import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signInWithPasswordInput } from "@repo/api/auth/auth-schema";
-import { Button } from "@repo/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@repo/ui/form";
-import { toast } from "@repo/ui/toast";
-import { cn } from "@repo/ui/utils";
+import { Button } from "@repo/ui/components/button";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/form";
+import { toast } from "@repo/ui/components/sonner";
+import { cn } from "@repo/ui/lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -190,124 +190,6 @@ export const RequestPasswordResetForm = () => {
   );
 };
 
-export const UpdatePasswordForm = () => {
-  const trpc = useTRPC();
-  const router = useRouter();
-
-  const updatePassword = useMutation(
-    trpc.auth.updatePassword.mutationOptions({
-      onSuccess: () => {
-        toast.success("Password updated successfully!");
-        router.push("/dashboard");
-      },
-      onError: (error) => toast.error(error.message),
-    }),
-  );
-
-  const form = useForm({
-    resolver: zodResolver(
-      z
-        .object({
-          currentPassword: z.string().min(1, "Current password is required"),
-          newPassword: z.string().min(8, "Password must be at least 8 characters"),
-          confirmPassword: z.string(),
-        })
-        .refine((data) => data.newPassword === data.confirmPassword, {
-          message: "Passwords don't match",
-          path: ["confirmPassword"],
-        }),
-    ),
-    defaultValues: {
-      currentPassword: "",
-      newPassword: "",
-      confirmPassword: "",
-    },
-  });
-
-  const handleUpdatePassword = (data: {
-    currentPassword: string;
-    newPassword: string;
-    confirmPassword: string;
-  }) => {
-    updatePassword.mutate({
-      currentPassword: data.currentPassword,
-      newPassword: data.newPassword,
-    });
-  };
-
-  return (
-    <Form {...form}>
-      <form className="grid gap-4" onSubmit={form.handleSubmit(handleUpdatePassword)}>
-        <FormField
-          control={form.control}
-          name="currentPassword"
-          render={({ field }) => (
-            <FormItem className="grid gap-1 space-y-0">
-              <FormLabel className="sr-only">Current Password</FormLabel>
-              <FormControl>
-                <input
-                  required
-                  type="password"
-                  placeholder="Current password"
-                  autoCapitalize="none"
-                  autoComplete="current-password"
-                  autoCorrect="off"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="newPassword"
-          render={({ field }) => (
-            <FormItem className="grid gap-1 space-y-0">
-              <FormLabel className="sr-only">New Password</FormLabel>
-              <FormControl>
-                <input
-                  required
-                  type="password"
-                  placeholder="New password"
-                  autoCapitalize="none"
-                  autoComplete="new-password"
-                  autoCorrect="off"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="confirmPassword"
-          render={({ field }) => (
-            <FormItem className="grid gap-1 space-y-0">
-              <FormLabel className="sr-only">Confirm New Password</FormLabel>
-              <FormControl>
-                <input
-                  required
-                  type="password"
-                  placeholder="Confirm new password"
-                  autoCapitalize="none"
-                  autoComplete="new-password"
-                  autoCorrect="off"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button loading={updatePassword.isPending}>Update Password</Button>
-      </form>
-    </Form>
-  );
-};
-
-// Used after password reset flow - token from email link
 export const SetPasswordForm = ({ token }: { token: string }) => {
   const trpc = useTRPC();
   const router = useRouter();
@@ -397,6 +279,3 @@ export const SetPasswordForm = ({ token }: { token: string }) => {
   );
 };
 
-export const MultiFactorAuthForm = () => {
-  return null;
-};

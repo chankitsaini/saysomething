@@ -4,7 +4,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createPostInput } from "@repo/api/post/post-schema";
 import { POST_EXPIRY_DAYS_AGO } from "@repo/api/post/post-utils";
-import { Button } from "@repo/ui/button";
+import { Button } from "@repo/ui/components/button";
 import {
   Dialog,
   DialogContent,
@@ -12,7 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@repo/ui/dialog";
+} from "@repo/ui/components/dialog";
 import {
   Drawer,
   DrawerContent,
@@ -20,40 +20,32 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@repo/ui/drawer";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@repo/ui/form";
-import { toast } from "@repo/ui/toast";
-import { cn, useMediaQuery } from "@repo/ui/utils";
-import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
+} from "@repo/ui/components/drawer";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/form";
+import { toast } from "@repo/ui/components/sonner";
+import { cn, useMediaQuery } from "@repo/ui/lib/utils";
+import { useMutation } from "@tanstack/react-query";
 import { addDays, format } from "date-fns";
 import { PlusIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 import type { CreatePostInput } from "@repo/api/post/post-schema";
 import { balloons } from "@/components/animations/balloons";
+import { useWorkspaceUser } from "@/lib/use-workspace-user";
 import { useTRPC } from "@/trpc/react";
 
 const postFormKey = "post-form";
 
 type PostFormProps = {
   placeholder?: string;
-  submitText?: string;
   parentId?: string;
   onSuccess?: () => void;
   contained?: boolean;
 };
 
-export const PostForm = ({
-  placeholder,
-  submitText = "Publish",
-  parentId,
-  onSuccess,
-  contained,
-}: PostFormProps) => {
+export const PostForm = ({ placeholder, parentId, onSuccess, contained }: PostFormProps) => {
   const trpc = useTRPC();
-  const {
-    data: { user },
-  } = useSuspenseQuery(trpc.auth.workspace.queryOptions());
+  const user = useWorkspaceUser();
 
   const form = useForm({
     resolver: zodResolver(createPostInput),
@@ -157,7 +149,7 @@ export const PostForm = ({
             </span>
           </div>
           <Button type="submit" loading={createPost.isPending}>
-            {submitText}
+            Publish
           </Button>
         </footer>
       </form>
@@ -172,11 +164,9 @@ export const NewPostButton = ({ placeholder }: PostFormProps) => {
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <Button size="icon" className="size-12">
-            <PlusIcon />
-            <span className="sr-only">New Post</span>
-          </Button>
+        <DialogTrigger render={<Button size="icon" className="size-12" />}>
+          <PlusIcon />
+          <span className="sr-only">New Post</span>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader className="sr-only">

@@ -1,10 +1,11 @@
 "use client";
 
-import { Card } from "@repo/ui/card";
-import { isDarkTheme, useTheme } from "@repo/ui/theme";
-import { useMediaQuery } from "@repo/ui/utils";
+import { Card } from "@repo/ui/components/card";
+import { isDarkTheme, useTheme } from "@/components/theme";
+import { useMediaQuery } from "@repo/ui/lib/utils";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
+import { useWorkspaceUser } from "@/lib/use-workspace-user";
 import { useTRPC } from "@/trpc/react";
 import { ActivityCalendar } from "./activity-calendar";
 import { ActivityStats } from "./activity-stats";
@@ -37,9 +38,7 @@ type ProfileProps = {
 export const Profile = ({ userId }: ProfileProps) => {
   const trpc = useTRPC();
   const { resolvedTheme } = useTheme();
-  const {
-    data: { user: currentUser },
-  } = useSuspenseQuery(trpc.auth.workspace.queryOptions());
+  const currentUser = useWorkspaceUser();
   const {
     data: { user },
   } = useSuspenseQuery(trpc.user.getUser.queryOptions({ userId }));

@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ProfileAvatar } from "@repo/ui/avatar";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/ui/tooltip";
+import { ProfileAvatar } from "@/components/profile-avatar";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/ui/components/tooltip";
 import { useQuery } from "@tanstack/react-query";
 
 import { getAvatarUrl } from "@/lib/avatars";
@@ -12,7 +12,6 @@ import { ActivityStats } from "./activity-stats";
 type Props = {
   userId: string;
   displayName?: string | null;
-  className?: string;
 };
 
 const ProfileTooltipContent = ({ userId, displayName }: Props) => {
@@ -46,16 +45,19 @@ const ProfileTooltipContent = ({ userId, displayName }: Props) => {
   );
 };
 
-export const ProfileLink = ({ userId, displayName, className = "" }: Props) => {
+export const ProfileLink = ({ userId, displayName }: Props) => {
   return (
     <Tooltip>
       <TooltipTrigger
-        className={`inline-flex underline decoration-dotted underline-offset-2 ${className}`}
-        asChild
+        className="inline-flex underline decoration-dotted underline-offset-2"
+        render={<Link href={`/profile/${userId}`} />}
       >
-        <Link href={`/profile/${userId}`}>{displayName || "Anonymous"}</Link>
+        {displayName || "Anonymous"}
       </TooltipTrigger>
-      <TooltipContent className="bg-popover text-popover-foreground shadow-md">
+      <TooltipContent
+        className="bg-popover text-popover-foreground shadow-md"
+        arrowClassName="bg-popover fill-popover"
+      >
         <Link href={`/profile/${userId}`}>
           <ProfileTooltipContent userId={userId} displayName={displayName} />
         </Link>

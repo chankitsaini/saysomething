@@ -1,7 +1,7 @@
 import type { Day as WeekDay } from "date-fns";
 import type { CSSProperties, FunctionComponent } from "react";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/ui/tooltip";
-import { format, getDay, getYear, parseISO } from "date-fns";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/ui/components/tooltip";
+import { format, getDay, parseISO } from "date-fns";
 
 import type {
   Day,
@@ -239,9 +239,7 @@ export const ActivityCalendar: FunctionComponent<Props> = ({
 
           return (
             <Tooltip key={day.date}>
-              <TooltipTrigger asChild>
-                <rect {...rectProps} />
-              </TooltipTrigger>
+              <TooltipTrigger render={<rect {...rectProps} />} />
               <TooltipContent>{getTooltipMessage(day)}</TooltipContent>
             </Tooltip>
           );

@@ -15,9 +15,11 @@
     "@capacitor/app": "^8.1.0",
     "@capacitor/core": "^8.3.0",
     "@capacitor/splash-screen": "^8.0.1",
-    "@knocklabs/react": "^0.10.5",
+    "@knocklabs/react": "^0.11.11",
     "@lottiefiles/react-lottie-player": "^3.6.0",
-    "@number-flow/react": "^0.5.14",
+    "@hookform/resolvers": "^5.2.2",
+    "@number-flow/react": "^0.6.0",
+    "@radix-ui/react-slot": "^1.2.4",
     "@react-hook/hotkey": "^3.1.0",
     "@repo/api": "workspace:^",
     "@repo/db": "workspace:^",
@@ -26,11 +28,13 @@
     "@trpc/client": "catalog:",
     "@trpc/server": "catalog:",
     "@trpc/tanstack-react-query": "catalog:",
-    "@vercel/analytics": "^1.6.1",
+    "@vercel/analytics": "^2.0.1",
     "@vercel/edge-config": "^1.4.3",
     "motion": "^12.38.0",
     "next": "catalog:",
+    "next-themes": "^0.4.6",
     "react": "catalog:",
+    "react-hook-form": "^7.72.0",
     "react-dom": "catalog:",
     "react-infinite-scroll-hook": "^6.0.1",
     "react-use": "^17.6.0",
@@ -48,6 +52,5 @@
     "postcss": "^8.5.8",
     "tailwindcss": "^4.2.2",
     "typescript": "catalog:"
-  },
-  "prettier": "@kyh/prettier-config"
+  }
 }

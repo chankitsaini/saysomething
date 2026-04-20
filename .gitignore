@@ -55,3 +55,6 @@ yarn-error.log*
 .temp
 tooling/prettier/index.js
 .superset
+
+# claude
+.claude/scheduled_tasks.lock

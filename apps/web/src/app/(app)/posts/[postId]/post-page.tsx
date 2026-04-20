@@ -1,12 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Button } from "@repo/ui/button";
-import { Card } from "@repo/ui/card";
+import { Button } from "@repo/ui/components/button";
+import { Card } from "@repo/ui/components/card";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowLeftIcon } from "lucide-react";
 import readingTime from "reading-time";
 
+import { useWorkspaceUser } from "@/lib/use-workspace-user";
 import { useTRPC } from "@/trpc/react";
 import { PostContent } from "../_components/post-content";
 import { PostForm } from "../_components/post-form";
@@ -18,9 +19,7 @@ type Props = {
 export const PostPage = ({ postId }: Props) => {
   const trpc = useTRPC();
   const router = useRouter();
-  const {
-    data: { user },
-  } = useSuspenseQuery(trpc.auth.workspace.queryOptions());
+  const user = useWorkspaceUser();
   const {
     data: { post },
   } = useSuspenseQuery(trpc.post.getPost.queryOptions({ postId }));

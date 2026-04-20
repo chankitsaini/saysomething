@@ -28,12 +28,12 @@ packages/
 
 ```bash
 pnpm dev              # All packages (turbo watch)
-pnpm dev-web          # Web only
-pnpm db-start         # Start local Supabase
-pnpm db-stop          # Stop Supabase
-pnpm db-reset         # Reset DB
-pnpm db-push          # Push schema to local
-pnpm db-push-remote   # Push schema to production
+pnpm dev:web          # Web only
+pnpm db:start         # Start local Supabase
+pnpm db:stop          # Stop Supabase
+pnpm db:reset         # Reset DB
+pnpm db:push          # Push schema to local
+pnpm db:push-remote   # Push schema to production
 pnpm lint             # ESLint
 pnpm format           # Prettier check
 pnpm typecheck        # TypeScript

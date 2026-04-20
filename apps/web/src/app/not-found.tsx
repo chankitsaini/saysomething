@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Button } from "@repo/ui/button";
-import { Logo } from "@repo/ui/logo";
+import { buttonVariants } from "@repo/ui/components/button";
+import { Logo } from "@repo/ui/components/logo";
 
 import { AsideHeader } from "@/components/layout/aside-header";
 import { PageContent, PageHeader } from "@/components/layout/page-layout";
@@ -24,9 +24,9 @@ const Page = () => {
         <PageHeader title="Page not found" />
         <PageContent className="flex flex-col gap-5">
           <h1>Could not find the page you were looking for</h1>
-          <Button className="self-start" variant="outline" asChild>
-            <Link href="/">Return Home</Link>
-          </Button>
+          <Link href="/" className={buttonVariants({ variant: "outline", className: "self-start" })}>
+            Return Home
+          </Link>
         </PageContent>
         <AsideHeader />
       </section>

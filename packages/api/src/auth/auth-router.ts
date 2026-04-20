@@ -11,8 +11,6 @@ import {
   setPasswordInput,
   signInWithPasswordInput,
   signUpInput,
-  updatePasswordInput,
-  verifyResetTokenInput,
 } from "./auth-schema";
 import { clearSession, createPasswordHash, setSession, validatePassword } from "./session";
 
@@ -140,21 +138,6 @@ export const authRouter = createTRPCRouter({
 
       return { success: true };
     }),
-  verifyResetToken: publicProcedure
-    .input(verifyResetTokenInput)
-    .query(async ({ ctx, input }) => {
-      const resetToken = await ctx.db.query.token.findFirst({
-        where: (t, { and, eq, gt, isNull }) =>
-          and(
-            eq(t.token, input.token),
-            eq(t.type, "RESET_PASSWORD"),
-            gt(t.expiresAt, new Date().toISOString()),
-            isNull(t.usedAt),
-          ),
-      });
-
-      return { valid: !!resetToken };
-    }),
   setPassword: publicProcedure.input(setPasswordInput).mutation(async ({ ctx, input }) => {
     const resetToken = await ctx.db.query.token.findFirst({
       where: (t, { and, eq, gt, isNull }) =>
@@ -184,38 +167,6 @@ export const authRouter = createTRPCRouter({
       .where(eq(tokenTable.id, resetToken.id));
 
     await setSession(resetToken.userId);
-
-    return { success: true };
-  }),
-  updatePassword: protectedProcedure.input(updatePasswordInput).mutation(async ({ ctx, input }) => {
-    // Get current user with password hash
-    const currentUser = await ctx.db.query.user.findFirst({
-      where: (u, { eq }) => eq(u.id, ctx.user.id),
-    });
-
-    if (!currentUser?.passwordHash) {
-      throw new TRPCError({
-        code: "BAD_REQUEST",
-        message: "Cannot update password for this account",
-      });
-    }
-
-    // Verify current password
-    const isValid = await validatePassword(input.currentPassword, currentUser.passwordHash);
-
-    if (!isValid) {
-      throw new TRPCError({
-        code: "UNAUTHORIZED",
-        message: "Current password is incorrect",
-      });
-    }
-
-    const passwordHash = await createPasswordHash(input.newPassword);
-
-    await ctx.db.update(user).set({ passwordHash }).where(eq(user.id, ctx.user.id));
-
-    // Rotate session after password change
-    await setSession(ctx.user.id);
 
     return { success: true };
   }),

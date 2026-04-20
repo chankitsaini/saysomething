@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useRef, useState } from "react";
-import { Button } from "@repo/ui/button";
+import { Button } from "@repo/ui/components/button";
 import {
   animate,
   easeIn,
@@ -13,7 +13,7 @@ import {
   wrap,
 } from "motion/react";
 
-import { useRootHotkeys } from "@/lib/hotkey";
+import { useHotkeys } from "@react-hook/hotkey";
 
 type CardStackContextType = {
   currentIndex: number;
@@ -153,7 +153,7 @@ export const CardStack = <T extends { id: string }>({
     setCurrentIndex(newIndex);
   };
 
-  useRootHotkeys([
+  useHotkeys(typeof window !== "undefined" ? window : null, [
     ["spacebar", handleSetNextPost],
     ["left", handleSetPreviousPost],
     ["right", handleSetNextPost],

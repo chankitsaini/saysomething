@@ -13,7 +13,7 @@
     "dev": "tsc",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false",
     "supabase": "pnpm with-env supabase",
-    "drizzle-kit": "pnpm with-env drizzle-kit",
+    "drizzle:kit": "pnpm with-env drizzle-kit",
     "seed": "pnpm with-env tsx src/seed/initial.ts",
     "start": "supabase status || supabase start",
     "stop": "supabase stop",
@@ -21,7 +21,7 @@
     "status": "supabase status",
     "test": "supabase db test",
     "push": "pnpm with-env drizzle-kit push",
-    "push-remote": "dotenv -e ../../.env.production.local -- drizzle-kit push",
+    "push:remote": "dotenv -e ../../.env.production.local -- drizzle-kit push",
     "generate": "pnpm with-env drizzle-kit generate",
     "migrate": "pnpm with-env drizzle-kit migrate",
     "studio": "pnpm with-env drizzle-kit studio",
@@ -40,6 +40,5 @@
     "drizzle-kit": "^0.31.10",
     "supabase": "^2.84.4",
     "typescript": "catalog:"
-  },
-  "prettier": "@kyh/prettier-config"
+  }
 }

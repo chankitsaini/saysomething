@@ -2,8 +2,8 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { Button } from "@repo/ui/button";
-import { Logo } from "@repo/ui/logo";
+import { buttonVariants } from "@repo/ui/components/button";
+import { Logo } from "@repo/ui/components/logo";
 
 import { AsideHeader } from "@/components/layout/aside-header";
 import { PageContent, PageHeader } from "@/components/layout/page-layout";
@@ -15,7 +15,6 @@ type ErrorProps = {
 
 const Page = ({ error }: ErrorProps) => {
   useEffect(() => {
-    // Log the error to an error reporting service
     console.error(error);
   }, [error]);
 
@@ -36,9 +35,9 @@ const Page = ({ error }: ErrorProps) => {
           </a>{" "}
           if it persists.
         </h1>
-        <Button className="self-start" variant="outline" asChild>
-          <Link href="/">Return Home</Link>
-        </Button>
+        <Link href="/" className={buttonVariants({ variant: "outline", className: "self-start" })}>
+          Return Home
+        </Link>
       </PageContent>
       <AsideHeader />
     </section>

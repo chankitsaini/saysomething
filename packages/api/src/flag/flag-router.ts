@@ -1,10 +1,9 @@
-import { and, eq } from "@repo/db";
 import { flag } from "@repo/db/drizzle-schema";
 import { getDefaultValues } from "@repo/db/utils";
 
 import { createUserIfNotExists } from "../auth/auth-utils";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
-import { createFlagInput, deleteFlagInput } from "./flag-schema";
+import { createTRPCRouter, publicProcedure } from "../trpc";
+import { createFlagInput } from "./flag-schema";
 
 export const flagRouter = createTRPCRouter({
   createFlag: publicProcedure.input(createFlagInput).mutation(async ({ ctx, input }) => {
@@ -21,17 +20,6 @@ export const flagRouter = createTRPCRouter({
 
     return {
       flag: created,
-    };
-  }),
-
-  deleteFlag: protectedProcedure.input(deleteFlagInput).mutation(async ({ ctx, input }) => {
-    const [deleted] = await ctx.db
-      .delete(flag)
-      .where(and(eq(flag.userId, ctx.user.id), eq(flag.postId, input.postId)))
-      .returning();
-
-    return {
-      flag: deleted,
     };
   }),
 });

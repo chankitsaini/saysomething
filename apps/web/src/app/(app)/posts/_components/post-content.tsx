@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { cn } from "@repo/ui/utils";
+import { cn } from "@repo/ui/lib/utils";
 
 import type { FeedLayout } from "@/lib/feed-layout-actions";
 import type { RouterOutputs } from "@repo/api";
@@ -17,10 +17,8 @@ type Props = {
   layout?: FeedLayout;
   minHeight?: boolean;
   asLink?: boolean;
-  showLike?: boolean;
   showComment?: boolean;
   showTimer?: boolean;
-  showShare?: boolean;
   showMore?: boolean;
 };
 
@@ -29,10 +27,8 @@ export const PostContent = ({
   layout = "list",
   minHeight = false,
   asLink = true,
-  showLike = true,
   showComment = true,
   showTimer = true,
-  showShare = true,
   showMore = true,
 }: Props) => {
   const contentClass = cn("whitespace-pre-wrap", minHeight && "min-h-[50dvh]");
@@ -58,9 +54,9 @@ export const PostContent = ({
         </div>
         <div className="text-muted-foreground mt-3 flex items-center justify-between sm:mt-0 sm:gap-1">
           {showComment && <CommentButton post={post} />}
-          {showLike && <LikeButton post={post} />}
+          <LikeButton post={post} />
           {showTimer && <TimerButton post={post} />}
-          {showShare && <ShareButton post={post} />}
+          <ShareButton post={post} />
           {showMore && <MoreButton post={post} />}
         </div>
       </footer>
