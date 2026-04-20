@@ -37,19 +37,12 @@ const postFormKey = "post-form";
 
 type PostFormProps = {
   placeholder?: string;
-  submitText?: string;
   parentId?: string;
   onSuccess?: () => void;
   contained?: boolean;
 };
 
-export const PostForm = ({
-  placeholder,
-  submitText = "Publish",
-  parentId,
-  onSuccess,
-  contained,
-}: PostFormProps) => {
+export const PostForm = ({ placeholder, parentId, onSuccess, contained }: PostFormProps) => {
   const trpc = useTRPC();
   const {
     data: { user },
@@ -157,7 +150,7 @@ export const PostForm = ({
             </span>
           </div>
           <Button type="submit" loading={createPost.isPending}>
-            {submitText}
+            Publish
           </Button>
         </footer>
       </form>

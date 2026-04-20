@@ -12,7 +12,6 @@ import { ActivityStats } from "./activity-stats";
 type Props = {
   userId: string;
   displayName?: string | null;
-  className?: string;
 };
 
 const ProfileTooltipContent = ({ userId, displayName }: Props) => {
@@ -46,11 +45,11 @@ const ProfileTooltipContent = ({ userId, displayName }: Props) => {
   );
 };
 
-export const ProfileLink = ({ userId, displayName, className = "" }: Props) => {
+export const ProfileLink = ({ userId, displayName }: Props) => {
   return (
     <Tooltip>
       <TooltipTrigger
-        className={`inline-flex underline decoration-dotted underline-offset-2 ${className}`}
+        className="inline-flex underline decoration-dotted underline-offset-2"
         render={<Link href={`/profile/${userId}`} />}
       >
         {displayName || "Anonymous"}

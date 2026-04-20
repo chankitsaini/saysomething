@@ -62,5 +62,3 @@ export const ActivityWeek = ({ data, theme: themeProp }: Props) => {
     </svg>
   );
 };
-
-export default ActivityWeek;

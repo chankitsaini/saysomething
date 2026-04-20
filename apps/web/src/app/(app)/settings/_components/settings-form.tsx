@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { updateUserInput } from "@repo/api/user/user-schema";
 import { Button } from "@repo/ui/components/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/form";
-import { Input } from "@repo/ui/components/input";
 import { Label } from "@repo/ui/components/label";
 import { RadioGroup, RadioGroupItem } from "@repo/ui/components/radio-group";
 import { themes, useTheme } from "@/components/theme";

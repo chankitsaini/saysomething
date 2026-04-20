@@ -35,9 +35,8 @@ const config = {
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   transpilePackages,
   images: {
-    remotePatterns: getRemotePatterns(),
+    remotePatterns: /** @type {any} */ (getRemotePatterns()),
   },
-  /** We already do linting and typechecking as separate tasks in CI */
   typescript: { ignoreBuildErrors: true },
 };
 

@@ -22,5 +22,3 @@ export const CommentButton = ({ post }: Props) => {
     </Link>
   );
 };
-
-export default CommentButton;

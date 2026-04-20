@@ -15,7 +15,11 @@ const Page = async () => {
   const filters = {
     limit: 5,
   };
-  prefetch(trpc.post.getFeed.infiniteQueryOptions(filters));
+  prefetch(
+    trpc.post.getFeed.infiniteQueryOptions(filters, {
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
+    }),
+  );
 
   return (
     <HydrateClient>
