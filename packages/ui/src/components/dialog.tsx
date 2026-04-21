@@ -95,11 +95,4 @@ function DialogDescription({ className, ...props }: DialogPrimitive.Description.
   );
 }
 
-export {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-};
+export { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger };

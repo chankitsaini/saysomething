@@ -15,7 +15,8 @@ import {
 import { clearSession, createPasswordHash, setSession, validatePassword } from "./session";
 
 const RESET_TOKEN_EXPIRY_HOURS = 1;
-const APP_URL = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://yourssincerely.org";
+const APP_URL =
+  process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://yourssincerely.org";
 
 const sanitizeUser = <T extends { passwordHash?: string | null }>(
   user: T,

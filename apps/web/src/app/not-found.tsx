@@ -24,7 +24,10 @@ const Page = () => {
         <PageHeader title="Page not found" />
         <PageContent className="flex flex-col gap-5">
           <h1>Could not find the page you were looking for</h1>
-          <Link href="/" className={buttonVariants({ variant: "outline", className: "self-start" })}>
+          <Link
+            href="/"
+            className={buttonVariants({ variant: "outline", className: "self-start" })}
+          >
             Return Home
           </Link>
         </PageContent>

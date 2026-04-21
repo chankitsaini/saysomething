@@ -1,4 +1,5 @@
 @import "@repo/ui/globals.css";
+
 @import "./themes.css";
 
 @plugin "@tailwindcss/typography";

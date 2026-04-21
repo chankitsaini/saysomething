@@ -51,8 +51,23 @@ export const AsideHeader = () => {
   const currentTheme = themes[currentThemeIndex];
 
   type MenuEntry =
-    | { kind: "link"; id: string; condition: boolean; href: string; target?: string; icon: React.ReactNode; label: string }
-    | { kind: "action"; id: string; condition: boolean; onClick: () => void | Promise<void>; icon: React.ReactNode; label: string }
+    | {
+        kind: "link";
+        id: string;
+        condition: boolean;
+        href: string;
+        target?: string;
+        icon: React.ReactNode;
+        label: string;
+      }
+    | {
+        kind: "action";
+        id: string;
+        condition: boolean;
+        onClick: () => void | Promise<void>;
+        icon: React.ReactNode;
+        label: string;
+      }
     | { kind: "separator"; id: string; condition: boolean };
 
   const menuItems: MenuEntry[] = [
@@ -93,10 +108,7 @@ export const AsideHeader = () => {
       },
       icon: (
         <span className="grid size-4 place-content-center">
-          <span
-            className="size-3 rounded-full ring"
-            style={{ background: currentTheme?.color }}
-          />
+          <span className="size-3 rounded-full ring" style={{ background: currentTheme?.color }} />
         </span>
       ),
       label: "Theme",
